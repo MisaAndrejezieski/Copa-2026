@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Bósnia e Herzegovina - Copa 2026</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .selecao-header {
+            background: linear-gradient(135deg, #003399 0%, #ffcc00 50%, #003399 100%) !important;
+            border-bottom: 4px solid #ffcc00 !important;
+        }
+
+        .selecao-header h1 {
+            color: #ffcc00 !important;
+            text-shadow: 0 2px 20px rgba(255, 204, 0, 0.4) !important;
+        }
+
+        .selecao-header .subtitle {
+            color: #aaccff !important;
+        }
+
+        .progresso-container {
+            max-width: 1000px;
+            margin: 24px auto;
+            padding: 0 20px;
+        }
+
+        .progresso-wrapper {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 4px;
+            border: 2px solid rgba(255, 204, 0, 0.3);
+        }
+
+        .progresso-barra {
+            height: 32px;
+            background: linear-gradient(90deg, #003399, #ffcc00);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 0.9rem;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+            min-width: 60px;
+        }
+
+        .figurinhas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .figurinha-card {
+            background: linear-gradient(145deg, #1a1a3a, #0a0a2a);
+            border-radius: 16px;
+            padding: 14px 10px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.3s, box-shadow 0.3s;
+            border: 3px solid #2a2a5a;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .figurinha-card:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .figurinha-card.vazia {
+            border-color: #3a3a4a;
+            background: #1a1a2a;
+        }
+
+        .figurinha-card.colada {
+            border-color: #003399;
+            background: linear-gradient(145deg, #0a0a3a, #1a1a4a);
+            box-shadow: 0 0 20px rgba(0, 51, 153, 0.2);
+        }
+
+        .figurinha-card.repetida {
+            border-color: #ffcc00;
+            background: linear-gradient(145deg, #3a3a0a, #2a2a0a);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.15);
+        }
+
+        .figurinha-card .espaco-imagem {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #4a4a6a;
+            font-weight: bold;
+            overflow: hidden;
+            margin-bottom: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .figurinha-card .espaco-imagem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .figurinha-card .numero {
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: #8a8aaa;
+            letter-spacing: 1px;
+        }
+
+        .figurinha-card .nome {
+            font-size: 0.85rem;
+            color: #ddeeff;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .figurinha-card .status-label {
+            display: inline-block;
+            font-size: 0.6rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #8a8aaa;
+            margin-top: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .figurinha-card.colada .status-label {
+            background: rgba(0, 51, 153, 0.3);
+            color: #6688dd;
+        }
+
+        .figurinha-card.repetida .status-label {
+            background: rgba(255, 204, 0, 0.2);
+            color: #ffdd44;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid rgba(255, 204, 0, 0.3);
+            padding: 10px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .btn-voltar:hover {
+            background: rgba(255, 204, 0, 0.15);
+            border-color: #ffcc00;
+            transform: scale(1.02);
+        }
+
+        .page-header {
+            max-width: 1100px;
+            margin: 0 auto 10px;
+            padding: 20px 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .page-header .info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .page-header .info img {
+            width: 56px;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .page-header .info h2 {
+            font-size: 2rem;
+            color: #ffcc00;
+            text-shadow: 0 2px 20px rgba(255, 204, 0, 0.2);
+        }
+
+        .page-header .info h2 small {
+            font-size: 0.9rem;
+            color: #8a8aaa;
+            font-weight: 400;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .figurinhas-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 14px;
+            }
+            .page-header .info h2 {
+                font-size: 1.5rem;
+            }
+            .page-header .info img {
+                width: 40px;
+            }
+            .progresso-barra {
+                font-size: 0.75rem;
+                height: 26px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .figurinhas-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            .figurinha-card {
+                padding: 10px 6px 8px;
+            }
+            .figurinha-card .nome {
+                font-size: 0.7rem;
+            }
+            .figurinha-card .numero {
+                font-size: 0.65rem;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .btn-voltar {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="selecao-header">
+        <div class="header-content">
+            <img src="logo.webp" alt="Logo Copa 2026" class="fifa-logo" />
+            <h1>BÓSNIA E HERZEGOVINA</h1>
+            <p class="subtitle">Copa 2026 - Minhas Figurinhas</p>
+        </div>
+    </header>
+
+    <div class="progresso-container">
+        <div class="progresso-wrapper">
+            <div class="progresso-barra" id="barraProgresso">0 / 20</div>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <div class="info">
+            <img src="Bósnia e Herzegovina/0-escudo-bosnia-e-herzegovina.webp" alt="Bósnia e Herzegovina" />
+            <h2>
+                Bósnia e Herzegovina
+                <small>Clique na figurinha para alternar: Vazio → Tenho → Repetida</small>
+            </h2>
+        </div>
+        <a href="index.html" class="btn-voltar">← Voltar ao Álbum</a>
+    </div>
+
+    <div class="figurinhas-grid" id="gridFigurinhas"></div>
+
+    <footer>
+        <p>© 2026 - Copa 2026 - Meu Álbum de Figurinhas</p>
+    </footer>
+
+    <script>
+        const selecaoId = 'bosnia-e-herzegovina';
+
+        const jogadores = [
+            { numero: 0, nome: 'Escudo Bósnia', img: 'Bósnia e Herzegovina/0-escudo-bosnia-e-herzegovina.webp' },
+            { numero: 1, nome: 'Nikola Vasilj', img: 'Bósnia e Herzegovina/bos-1-nikola-vasilj.webp' },
+            { numero: 2, nome: 'Amar Dedic', img: 'Bósnia e Herzegovina/bos-3-amar-dedic.webp' },
+            { numero: 3, nome: 'Sead Kolasinac', img: 'Bósnia e Herzegovina/bos-3-sead-kolasinac.webp' },
+            { numero: 4, nome: 'Ibrahim Sehic', img: 'Bósnia e Herzegovina/bos-4-ibrahim-sehic.webp' },
+            { numero: 5, nome: 'Sead Kolasinac', img: 'Bósnia e Herzegovina/bos-5-sead-kolasinac.webp' },
+            { numero: 6, nome: 'Anel Ahmedhodzic', img: 'Bósnia e Herzegovina/bos-7-anel-ahmedhodzic.webp' },
+            { numero: 7, nome: 'Nikola Katic', img: 'Bósnia e Herzegovina/bos-7-nikola-katic.webp' },
+            { numero: 8, nome: 'Darko Todorovic', img: 'Bósnia e Herzegovina/bos-8-darko-todorovic.webp' },
+            { numero: 9, nome: 'Armer Gojak', img: 'Bósnia e Herzegovina/bos-10-amer-gojak.webp' },
+            { numero: 10, nome: 'Amin Gigovic', img: 'Bósnia e Herzegovina/bos-10-armin-gigovic.webp' },
+            { numero: 11, nome: 'Ajdin Hrustic', img: 'Bósnia e Herzegovina/bos-11-ajdin-hrustic.webp' },
+            { numero: 13, nome: 'Seleção Bósnia', img: 'Bósnia e Herzegovina/bos-13-selecao-bosnia-e-herzegovina.webp' },
+            { numero: 14, nome: 'Dzenis Burmic', img: 'Bósnia e Herzegovina/bos-14-dzenis-burnic.webp' },
+            { numero: 15, nome: 'Dario Sunjic', img: 'Bósnia e Herzegovina/bos-15-dario-sunjic.webp' },
+            { numero: 16, nome: 'Esmir Bajraktarevic', img: 'Bósnia e Herzegovina/bos-15-esmir-bajraktarevic.webp' },
+            { numero: 17, nome: 'Ermedin Demirovic', img: 'Bósnia e Herzegovina/bos-17-ermedin-demirovic.webp' },
+            { numero: 19, nome: 'Kenan Piric', img: 'Bósnia e Herzegovina/bos-17-kenan-piric.webp' },
+            { numero: 18, nome: 'Anel Mesanovic', img: 'Bósnia e Herzegovina/bos-18-anel-mesanovic.webp' },
+            { numero: 20, nome: 'Haris Tabakovic', img: 'Bósnia e Herzegovina/bos-t-20- Haris Tabakovic -bosnia-e-herzegovina.webp' }
+        ];
+
+        const totalFigurinhas = jogadores.length;
+
+        const storageKey = `album_${selecaoId}`;
+        let estado = JSON.parse(localStorage.getItem(storageKey)) || {};
+
+        jogadores.forEach((j, index) => {
+            const key = `${j.numero}-${index}`;
+            if (!(key in estado)) {
+                estado[key] = 0;
+            }
+        });
+
+        function salvarEstado() {
+            localStorage.setItem(storageKey, JSON.stringify(estado));
+            renderizar();
+        }
+
+        function toggleFigurinha(numero, index) {
+            const key = `${numero}-${index}`;
+            estado[key] = (estado[key] + 1) % 3;
+            salvarEstado();
+        }
+
+        const grid = document.getElementById('gridFigurinhas');
+        const barra = document.getElementById('barraProgresso');
+
+        function renderizar() {
+            grid.innerHTML = '';
+            
+            let coladas = 0;
+            for (let key in estado) {
+                if (estado[key] === 1) coladas++;
+            }
+
+            jogadores.forEach((j, index) => {
+                const key = `${j.numero}-${index}`;
+                const status = estado[key] || 0;
+
+                const div = document.createElement('div');
+                div.className = `figurinha-card ${status === 0 ? 'vazia' : status === 1 ? 'colada' : 'repetida'}`;
+                div.addEventListener('click', () => toggleFigurinha(j.numero, index));
+
+                let html = `
+                    <div class="espaco-imagem">
+                `;
+
+                if (status === 0) {
+                    html += `?`;
+                } else {
+                    html += `<img src="${j.img}" alt="${j.nome}" />`;
+                }
+
+                html += `
+                    </div>
+                    <div class="numero">${j.numero}</div>
+                    <div class="nome">${j.nome}</div>
+                    <div class="status-label">${status === 0 ? 'Vazio' : status === 1 ? 'Tenho' : 'Repetida'}</div>
+                `;
+
+                div.innerHTML = html;
+                grid.appendChild(div);
+            });
+
+            const percentual = Math.round((coladas / totalFigurinhas) * 100);
+            barra.style.width = `${percentual}%`;
+            barra.textContent = `${coladas} / ${totalFigurinhas}`;
+        }
+
+        renderizar();
+    </script>
+
+</body>
+</html>

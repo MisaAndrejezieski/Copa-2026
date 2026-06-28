@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Costa do Marfim - Copa 2026</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ===== CORES DA COSTA DO MARFIM ===== */
+        .selecao-header {
+            background: linear-gradient(135deg, #ff7518 0%, #ffffff 50%, #009a44 100%) !important;
+            border-bottom: 4px solid #ff7518 !important;
+        }
+
+        .selecao-header h1 {
+            color: #ffffff !important;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .selecao-header .subtitle {
+            color: #ffddbb !important;
+        }
+
+        /* ===== GRID DE FIGURINHAS ===== */
+        .figurinhas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .figurinha-card {
+            background: linear-gradient(145deg, #1a2a1a, #0a1a0a);
+            border-radius: 16px;
+            padding: 14px 10px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.3s, box-shadow 0.3s;
+            border: 3px solid #2a4a2a;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .figurinha-card:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .figurinha-card.vazia {
+            border-color: #3a4a3a;
+            background: #1a2a1a;
+        }
+
+        .figurinha-card.colada {
+            border-color: #ff7518;
+            background: linear-gradient(145deg, #2a1a0a, #3a2a1a);
+            box-shadow: 0 0 20px rgba(255, 117, 24, 0.2);
+        }
+
+        .figurinha-card .espaco-imagem {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #4a6a4a;
+            font-weight: bold;
+            overflow: hidden;
+            margin-bottom: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .figurinha-card .espaco-imagem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .figurinha-card .numero {
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: #8aaa8a;
+            letter-spacing: 1px;
+        }
+
+        .figurinha-card .nome {
+            font-size: 0.85rem;
+            color: #ddeedd;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .figurinha-card .status-label {
+            display: inline-block;
+            font-size: 0.6rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #8aaa8a;
+            margin-top: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .figurinha-card.colada .status-label {
+            background: rgba(255, 117, 24, 0.3);
+            color: #ff8844;
+        }
+
+        /* ===== BOTÃO VOLTAR ===== */
+        .btn-voltar {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid rgba(255, 117, 24, 0.3);
+            padding: 10px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .btn-voltar:hover {
+            background: rgba(255, 117, 24, 0.15);
+            border-color: #ff7518;
+            transform: scale(1.02);
+        }
+
+        /* ===== CABEÇALHO DA PÁGINA ===== */
+        .page-header {
+            max-width: 1100px;
+            margin: 0 auto 10px;
+            padding: 20px 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .page-header .info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .page-header .info img {
+            width: 56px;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .page-header .info h2 {
+            font-size: 2rem;
+            color: #ff7518;
+            text-shadow: 0 2px 20px rgba(255, 117, 24, 0.2);
+        }
+
+        .page-header .info h2 small {
+            font-size: 0.9rem;
+            color: #8aaa8a;
+            font-weight: 400;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .figurinhas-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 14px;
+            }
+            .page-header .info h2 {
+                font-size: 1.5rem;
+            }
+            .page-header .info img {
+                width: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .figurinhas-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            .figurinha-card {
+                padding: 10px 6px 8px;
+            }
+            .figurinha-card .nome {
+                font-size: 0.7rem;
+            }
+            .figurinha-card .numero {
+                font-size: 0.65rem;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .btn-voltar {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER COSTA DO MARFIM ===== -->
+    <header class="selecao-header">
+        <div class="header-content">
+            <img src="logo.webp" alt="Logo Copa 2026" class="fifa-logo" />
+            <h1>COSTA DO MARFIM</h1>
+            <p class="subtitle">Copa 2026 - Minhas Figurinhas</p>
+        </div>
+    </header>
+
+    <!-- ===== CABEÇALHO DA PÁGINA ===== -->
+    <div class="page-header">
+        <div class="info">
+            <img src="Costa do Marfim/civ-0-escudo-costa-do-marfim.webp" alt="Costa do Marfim" />
+            <h2>
+                Seleção Marfinense
+                <small>Clique na figurinha para alternar: Vazio ↔ Tenho</small>
+            </h2>
+        </div>
+        <a href="index.html" class="btn-voltar">← Voltar ao Álbum</a>
+    </div>
+
+    <!-- ===== GRID DE FIGURINHAS ===== -->
+    <div class="figurinhas-grid" id="gridFigurinhas">
+        <!-- Preenchido via JavaScript -->
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>© 2026 - Copa 2026 - Meu Álbum de Figurinhas</p>
+    </footer>
+
+    <script>
+        // ============================================
+        // DADOS DOS JOGADORES
+        // ============================================
+        const selecaoId = 'costa-do-marfim';
+
+        const jogadores = [
+            { numero: 0, nome: 'Escudo Costa do Marfim', img: 'Costa do Marfim/civ-0-escudo-costa-do-marfim.webp' },
+            { numero: 1, nome: 'Seko Fofana', img: 'Costa do Marfim/civ-1-seko-fofana.webp' },
+            { numero: 2, nome: 'Nicolas Pépé', img: 'Costa do Marfim/civ-2-nicolas-pepe.webp' },
+            { numero: 3, nome: 'Simon Adingra', img: 'Costa do Marfim/civ-3-simon-adingra.webp' },
+            { numero: 4, nome: 'Odilon Kossounou', img: 'Costa do Marfim/civ-4-odilon-kossounou.webp' },
+            { numero: 5, nome: 'Serge Aurier', img: 'Costa do Marfim/civ-5-serge-aurier.webp' },
+            { numero: 6, nome: 'Eric Bailly', img: 'Costa do Marfim/civ-6-eric-bailly.webp' },
+            { numero: 7, nome: 'Emmanuel Agradou', img: 'Costa do Marfim/civ-7-emmanuel-agradou.webp' },
+            { numero: 8, nome: 'Ousmane Diomande', img: 'Costa do Marfim/civ-8-ousmane-diomande.webp' },
+            { numero: 10, nome: 'Jean Michael Seri', img: 'Costa do Marfim/civ-10-jean-michael-seri.webp' },
+            { numero: 11, nome: 'Ibrahim Sangaré', img: 'Costa do Marfim/civ-11-ibrahim-sangare.webp' },
+            { numero: 12, nome: 'Jean-Philippe Gbamin', img: 'Costa do Marfim/civ-12-jean-philippe-gbamin.webp' },
+            { numero: 14, nome: 'Amad Diallo', img: 'Costa do Marfim/civ-14-amad-diallo.webp' },
+            { numero: 15, nome: 'Ibrahim Sangaré', img: 'Costa do Marfim/civ-15-ibrahim-sangare.webp' },
+            { numero: 16, nome: 'Simon Adingra', img: 'Costa do Marfim/civ-16-simon-adingra.webp' },
+            { numero: 17, nome: 'Van Diomande', img: 'Costa do Marfim/civ-17-van-diomande.webp' },
+            { numero: 18, nome: 'Badra Ali Sangaré', img: 'Costa do Marfim/civ-18-badra-ali-sangare.webp' },
+            { numero: 20, nome: 'Oumar Diakite', img: 'Costa do Marfim/civ-t-oumar-diakite.webp' }
+        ];
+
+        // ============================================
+        // ESTADO (localStorage) - APENAS 2 ESTADOS
+        // ============================================
+        const storageKey = `album_${selecaoId}`;
+        let estado = JSON.parse(localStorage.getItem(storageKey)) || {};
+
+        jogadores.forEach((j, index) => {
+            const key = `${j.numero}-${index}`;
+            if (!(key in estado)) {
+                estado[key] = 0;
+            }
+        });
+
+        function salvarEstado() {
+            localStorage.setItem(storageKey, JSON.stringify(estado));
+            renderizar();
+        }
+
+        function toggleFigurinha(numero, index) {
+            const key = `${numero}-${index}`;
+            estado[key] = estado[key] === 0 ? 1 : 0;
+            salvarEstado();
+        }
+
+        // ============================================
+        // RENDERIZAÇÃO
+        // ============================================
+        const grid = document.getElementById('gridFigurinhas');
+
+        function renderizar() {
+            grid.innerHTML = '';
+
+            jogadores.forEach((j, index) => {
+                const key = `${j.numero}-${index}`;
+                const status = estado[key] || 0;
+
+                const div = document.createElement('div');
+                div.className = `figurinha-card ${status === 0 ? 'vazia' : 'colada'}`;
+                div.addEventListener('click', () => toggleFigurinha(j.numero, index));
+
+                let html = `
+                    <div class="espaco-imagem">
+                `;
+
+                if (status === 0) {
+                    html += `?`;
+                } else {
+                    html += `<img src="${j.img}" alt="${j.nome}" />`;
+                }
+
+                html += `
+                    </div>
+                    <div class="numero">${j.numero}</div>
+                    <div class="nome">${j.nome}</div>
+                    <div class="status-label">${status === 0 ? 'Vazio' : 'Tenho'}</div>
+                `;
+
+                div.innerHTML = html;
+                grid.appendChild(div);
+            });
+        }
+
+        renderizar();
+    </script>
+
+</body>
+</html>
