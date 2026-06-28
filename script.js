@@ -10,6 +10,7 @@ const selecoes = [
     { id: 'canada', nome: 'Canadá', bandeira: 'Canadá/can-0-escudo-canada.webp' },
     { id: 'coreia-do-sul', nome: 'Coreia do Sul', bandeira: 'Coreia do Sul/kor-0-escudo-coreia-do-sul.webp' },
     { id: 'costa-do-marfim', nome: 'Costa do Marfim', bandeira: 'Costa do Marfim/civ-0-escudo-costa-do-marfim.webp' },
+    { id: 'curacao', nome: 'Curaçao', bandeira: 'Curaçao/cwu-0-escudo-curacao.webp' },
 ];
 
 // ============================================
