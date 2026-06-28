@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #1a1a2e;
+    background: #0d0d1a;
     min-height: 100vh;
     color: #fff;
 }
@@ -59,55 +59,95 @@ main {
 
 .selecoes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 30px;
 }
 
-/* ===== CARDS DAS SELEÇÕES ===== */
+/* ===== CARDS DAS SELEÇÕES (MELHORADOS) ===== */
 .selecao-card {
-    background: #2a2a4a;
-    border-radius: 16px;
-    padding: 20px 16px 16px;
+    background: linear-gradient(145deg, #1a1a3a, #111128);
+    border-radius: 20px;
+    padding: 24px 16px 20px;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: 2px solid #3a3a5a;
+    transition: all 0.3s ease;
+    border: 2px solid #2a2a5a;
     text-decoration: none;
     color: #fff;
     display: block;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efeito de brilho no hover */
+.selecao-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+.selecao-card:hover::before {
+    opacity: 1;
 }
 
 .selecao-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.15);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(255, 215, 0, 0.15);
     border-color: #ffd700;
 }
 
+/* Borda de seleção (diferencia as seleções) */
 .selecao-card .bandeira {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-    margin-bottom: 10px;
-    border: 3px solid #4a4a6a;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    margin-bottom: 12px;
+    border: 3px solid #3a3a6a;
+    transition: border-color 0.3s;
+}
+
+.selecao-card:hover .bandeira {
+    border-color: #ffd700;
 }
 
 .selecao-card h3 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: #eee;
+    color: #f0f0ff;
     margin-top: 4px;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+}
+
+/* Número de figurinhas (pequeno indicador) */
+.selecao-card .figurinhas-count {
+    font-size: 0.7rem;
+    color: #8a8aaa;
+    margin-top: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    letter-spacing: 0.5px;
 }
 
 /* ===== FOOTER ===== */
 footer {
     text-align: center;
     padding: 30px 20px;
-    color: #667;
+    color: #556;
     font-size: 0.85rem;
-    border-top: 1px solid #2a2a4a;
+    border-top: 1px solid #1a1a3a;
     margin-top: 20px;
 }
 
@@ -121,8 +161,8 @@ footer {
         height: 50px;
     }
     .selecoes-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 20px;
     }
 }
 
@@ -132,14 +172,17 @@ footer {
         letter-spacing: 2px;
     }
     .selecoes-grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 14px;
     }
     .selecao-card {
-        padding: 14px 10px;
+        padding: 16px 10px 14px;
     }
     .selecao-card .bandeira {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
+    }
+    .selecao-card h3 {
+        font-size: 0.9rem;
     }
 }
