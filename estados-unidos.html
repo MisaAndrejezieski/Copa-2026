@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Estados Unidos - Copa 2026</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ===== CORES DOS ESTADOS UNIDOS ===== */
+        .selecao-header {
+            background: linear-gradient(135deg, #002868 0%, #ffffff 50%, #bf0a30 100%) !important;
+            border-bottom: 4px solid #ffffff !important;
+        }
+
+        .selecao-header h1 {
+            color: #ffffff !important;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        .selecao-header .subtitle {
+            color: #ffffff !important;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        /* ===== GRID DE FIGURINHAS ===== */
+        .figurinhas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .figurinha-card {
+            background: linear-gradient(145deg, #1a1a3a, #0a0a2a);
+            border-radius: 16px;
+            padding: 14px 10px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.3s, box-shadow 0.3s;
+            border: 3px solid #2a2a5a;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .figurinha-card:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .figurinha-card.vazia {
+            border-color: #3a3a4a;
+            background: #1a1a2a;
+        }
+
+        .figurinha-card.colada {
+            border-color: #bf0a30;
+            background: linear-gradient(145deg, #2a0a0a, #3a1a1a);
+            box-shadow: 0 0 20px rgba(191, 10, 48, 0.2);
+        }
+
+        .figurinha-card .espaco-imagem {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #4a4a6a;
+            font-weight: bold;
+            overflow: hidden;
+            margin-bottom: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .figurinha-card .espaco-imagem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .figurinha-card .numero {
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: #8a8aaa;
+            letter-spacing: 1px;
+        }
+
+        .figurinha-card .nome {
+            font-size: 0.85rem;
+            color: #ddeeff;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .figurinha-card .status-label {
+            display: inline-block;
+            font-size: 0.6rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #8a8aaa;
+            margin-top: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .figurinha-card.colada .status-label {
+            background: rgba(191, 10, 48, 0.3);
+            color: #ff6666;
+        }
+
+        /* ===== BOTÃO VOLTAR ===== */
+        .btn-voltar {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .btn-voltar:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ffffff;
+            transform: scale(1.02);
+        }
+
+        /* ===== CABEÇALHO DA PÁGINA ===== */
+        .page-header {
+            max-width: 1100px;
+            margin: 0 auto 10px;
+            padding: 20px 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .page-header .info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .page-header .info img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .page-header .info h2 {
+            font-size: 2rem;
+            color: #ffffff;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-header .info h2 small {
+            font-size: 0.9rem;
+            color: #8a8aaa;
+            font-weight: 400;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .figurinhas-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 14px;
+            }
+            .page-header .info h2 {
+                font-size: 1.5rem;
+            }
+            .page-header .info img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .figurinhas-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            .figurinha-card {
+                padding: 10px 6px 8px;
+            }
+            .figurinha-card .nome {
+                font-size: 0.7rem;
+            }
+            .figurinha-card .numero {
+                font-size: 0.65rem;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .btn-voltar {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ESTADOS UNIDOS ===== -->
+    <header class="selecao-header">
+        <div class="header-content">
+            <img src="logo.png" alt="Logo Copa 2026" class="fifa-logo" />
+            <h1>ESTADOS UNIDOS</h1>
+            <p class="subtitle">Copa 2026 - Minhas Figurinhas</p>
+        </div>
+    </header>
+
+    <!-- ===== CABEÇALHO DA PÁGINA ===== -->
+    <div class="page-header">
+        <div class="info">
+            <img src="Estados Unidos/est-0-escudo-estados-unidos.webp" alt="Estados Unidos" />
+            <h2>
+                Seleção Americana
+                <small>Clique na figurinha para alternar: Vazio ↔ Tenho</small>
+            </h2>
+        </div>
+        <a href="index.html" class="btn-voltar">← Voltar ao Álbum</a>
+    </div>
+
+    <!-- ===== GRID DE FIGURINHAS ===== -->
+    <div class="figurinhas-grid" id="gridFigurinhas">
+        <!-- Preenchido via JavaScript -->
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>© 2026 - Copa 2026 - Meu Álbum de Figurinhas</p>
+    </footer>
+
+    <script>
+        // ============================================
+        // DADOS DOS JOGADORES
+        // ============================================
+        const selecaoId = 'estados-unidos';
+
+        const jogadores = [
+            { numero: 0, nome: 'Escudo Estados Unidos', img: 'Estados Unidos/est-0-escudo-estados-unidos.webp' },
+            { numero: 1, nome: 'Christian Pulisic', img: 'Estados Unidos/est-1-christian-pulisic.webp' },
+            { numero: 2, nome: 'Weston McKennie', img: 'Estados Unidos/est-2-weston-mckennie.webp' },
+            { numero: 4, nome: 'Matt Turner', img: 'Estados Unidos/est-4-matt-turner.webp' },
+            { numero: 5, nome: 'Sergiño Dest', img: 'Estados Unidos/est-5-sergino-dest.webp' },
+            { numero: 6, nome: 'Miles Robinson', img: 'Estados Unidos/est-6-miles-robinson.webp' },
+            { numero: 7, nome: 'Walker Zimmerman', img: 'Estados Unidos/est-7-walker-zimmerman.webp' },
+            { numero: 8, nome: 'Antonee Robinson', img: 'Estados Unidos/est-8-antonee-robinson.webp' },
+            { numero: 9, nome: 'Tyler Adams', img: 'Estados Unidos/est-9-tyler-adams.webp' },
+            { numero: 10, nome: 'Cristian Roldan', img: 'Estados Unidos/est-10-cristian-roldan.webp' },
+            { numero: 11, nome: 'Christian Pulisic', img: 'Estados Unidos/est-11-christian-pulisic.webp' },
+            { numero: 12, nome: 'Giovanni Reyna', img: 'Estados Unidos/est-12-giovanni-reyna.webp' },
+            { numero: 14, nome: 'Timothy Weah', img: 'Estados Unidos/est-14-timothy-weah.webp' },
+            { numero: 15, nome: 'Brenden Aaronson', img: 'Estados Unidos/est-15-brenden-aronson.webp' },
+            { numero: 16, nome: 'Yunus Musah', img: 'Estados Unidos/est-16-yunus-musah.webp' },
+            { numero: 17, nome: 'Cameron Carter-Vickers', img: 'Estados Unidos/est-17-cameron-carter-vickers.webp' },
+            { numero: 18, nome: 'Ethan Horvath', img: 'Estados Unidos/est-18-ethan-horvath.webp' },
+            { numero: 19, nome: 'Técnico Estados Unidos', img: 'Estados Unidos/est-19-tecnico-estados-unidos.webp' }
+        ];
+
+        // ============================================
+        // ESTADO (localStorage) - APENAS 2 ESTADOS
+        // ============================================
+        const storageKey = `album_${selecaoId}`;
+        let estado = JSON.parse(localStorage.getItem(storageKey)) || {};
+
+        jogadores.forEach((j, index) => {
+            const key = `${j.numero}-${index}`;
+            if (!(key in estado)) {
+                estado[key] = 0;
+            }
+        });
+
+        function salvarEstado() {
+            localStorage.setItem(storageKey, JSON.stringify(estado));
+            renderizar();
+        }
+
+        function toggleFigurinha(numero, index) {
+            const key = `${numero}-${index}`;
+            estado[key] = estado[key] === 0 ? 1 : 0;
+            salvarEstado();
+        }
+
+        // ============================================
+        // RENDERIZAÇÃO
+        // ============================================
+        const grid = document.getElementById('gridFigurinhas');
+
+        function renderizar() {
+            grid.innerHTML = '';
+
+            jogadores.forEach((j, index) => {
+                const key = `${j.numero}-${index}`;
+                const status = estado[key] || 0;
+
+                const div = document.createElement('div');
+                div.className = `figurinha-card ${status === 0 ? 'vazia' : 'colada'}`;
+                div.addEventListener('click', () => toggleFigurinha(j.numero, index));
+
+                let html = `
+                    <div class="espaco-imagem">
+                `;
+
+                if (status === 0) {
+                    html += `?`;
+                } else {
+                    html += `<img src="${j.img}" alt="${j.nome}" />`;
+                }
+
+                html += `
+                    </div>
+                    <div class="numero">${j.numero}</div>
+                    <div class="nome">${j.nome}</div>
+                    <div class="status-label">${status === 0 ? 'Vazio' : 'Tenho'}</div>
+                `;
+
+                div.innerHTML = html;
+                grid.appendChild(div);
+            });
+        }
+
+        renderizar();
+    </script>
+
+</body>
+</html>

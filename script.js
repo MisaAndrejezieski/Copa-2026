@@ -13,6 +13,7 @@ const selecoes = [
     { id: 'curacao', nome: 'Curaçao', bandeira: 'Curaçao/cuw-0-escudo-curacao.webp' },
     { id: 'equador', nome: 'Equador', bandeira: 'Equador/ecu-1-escudo-equador.webp' },
     { id: 'escocia', nome: 'Escócia', bandeira: 'Escócia/esc-0-escudo-escocia.webp' },
+    { id: 'estados-unidos', nome: 'Estados Unidos', bandeira: 'Estados Unidos/est-0-escudo-estados-unidos.webp' },
 ];
 
 // ============================================
