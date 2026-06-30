@@ -1,3 +1,6 @@
+// ============================================
+// DADOS DAS SELEÇÕES
+// ============================================
 const selecoes = [
     { id: 'brasil', nome: 'Brasil', bandeira: 'Brasil/bra-1-escudo-do-brasil.webp' },
     { id: 'africa-do-sul', nome: 'África do Sul', bandeira: 'Africa do Sul/rsa-1-escudo-africa-do-sul.webp' },
@@ -15,23 +18,34 @@ const selecoes = [
     { id: 'marrocos', nome: 'Marrocos', bandeira: 'Marrocos/mar-0-escudo-marrocos.webp' },
     { id: 'mexico', nome: 'México', bandeira: 'México/mex-1-escudo-mexico.webp' },
     { id: 'paraguai', nome: 'Paraguai', bandeira: 'Paraguai/par-0-escudo-paraguai.webp' },
-    { id: 'qatar', nome: 'Qatar', bandeira: 'Qatar/1-escudo-catar.webp' },
+    { id: 'qatar', nome: 'Qatar', bandeira: 'Qatar/cat-1-escudo-qatar.webp' },
+    { id: 'republica-tcheca', nome: 'República Tcheca', bandeira: 'República Tcheca/cze-0-escudo-republica-tcheca.webp' },
 ];
 
+// ============================================
+// RENDERIZAR CARDS
+// ============================================
 function renderizarCards() {
     const grid = document.getElementById('selecoesGrid');
     if (!grid) return;
+
     grid.innerHTML = '';
+
     selecoes.forEach(sel => {
         const card = document.createElement('a');
         card.href = `${sel.id}.html`;
         card.className = 'selecao-card';
+
         card.innerHTML = `
             <img src="${sel.bandeira}" alt="${sel.nome}" class="bandeira" />
             <h3>${sel.nome}</h3>
         `;
+
         grid.appendChild(card);
     });
 }
 
+// ============================================
+// INICIALIZAR
+// ============================================
 document.addEventListener('DOMContentLoaded', renderizarCards);
