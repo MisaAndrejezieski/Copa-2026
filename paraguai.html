@@ -14,12 +14,12 @@
 
         .selecao-header h1 {
             color: #ffffff !important;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6) !important;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8) !important;
         }
 
         .selecao-header .subtitle {
             color: #ffffff !important;
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4) !important;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7) !important;
         }
 
         /* ===== GRID DE FIGURINHAS ===== */
@@ -49,17 +49,6 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .figurinha-card.vazia {
-            border-color: #3a3a4a;
-            background: #1a1a2a;
-        }
-
-        .figurinha-card.colada {
-            border-color: #cc0000;
-            background: linear-gradient(145deg, #2a0a0a, #3a1a1a);
-            box-shadow: 0 0 20px rgba(204, 0, 0, 0.2);
-        }
-
         .figurinha-card .espaco-imagem {
             width: 100%;
             aspect-ratio: 3/4;
@@ -68,9 +57,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
-            color: #4a4a6a;
-            font-weight: bold;
             overflow: hidden;
             margin-bottom: 6px;
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -94,24 +80,6 @@
             color: #ddeeff;
             font-weight: 600;
             margin-top: 2px;
-        }
-
-        .figurinha-card .status-label {
-            display: inline-block;
-            font-size: 0.6rem;
-            padding: 2px 12px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #8a8aaa;
-            margin-top: 4px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .figurinha-card.colada .status-label {
-            background: rgba(204, 0, 0, 0.3);
-            color: #ff6666;
         }
 
         /* ===== BOTÃO VOLTAR ===== */
@@ -232,7 +200,7 @@
             <img src="Paraguai/par-0-escudo-paraguai.webp" alt="Paraguai" />
             <h2>
                 Seleção Paraguaia
-                <small>Clique na figurinha para alternar: Vazio ↔ Tenho</small>
+                <small>Clique na figurinha para baixar</small>
             </h2>
         </div>
         <a href="index.html" class="btn-voltar">← Voltar ao Álbum</a>
@@ -252,8 +220,6 @@
         // ============================================
         // DADOS DOS JOGADORES
         // ============================================
-        const selecaoId = 'paraguai';
-
         const jogadores = [
             { numero: 0, nome: 'Escudo Paraguai', img: 'Paraguai/par-0-escudo-paraguai.webp' },
             { numero: 1, nome: 'Miguel Almirón', img: 'Paraguai/par-1-miguel-almiron.webp' },
@@ -274,27 +240,21 @@
         ];
 
         // ============================================
-        // ESTADO (localStorage) - APENAS 2 ESTADOS
+        // FUNÇÃO PARA BAIXAR A IMAGEM
         // ============================================
-        const storageKey = `album_${selecaoId}`;
-        let estado = JSON.parse(localStorage.getItem(storageKey)) || {};
-
-        jogadores.forEach((j, index) => {
-            const key = `${j.numero}-${index}`;
-            if (!(key in estado)) {
-                estado[key] = 0;
-            }
-        });
-
-        function salvarEstado() {
-            localStorage.setItem(storageKey, JSON.stringify(estado));
-            renderizar();
-        }
-
-        function toggleFigurinha(numero, index) {
-            const key = `${numero}-${index}`;
-            estado[key] = estado[key] === 0 ? 1 : 0;
-            salvarEstado();
+        function baixarImagem(url, nome) {
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = nome;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(link.href);
+                })
+                .catch(err => console.error('Erro ao baixar:', err));
         }
 
         // ============================================
@@ -305,32 +265,23 @@
         function renderizar() {
             grid.innerHTML = '';
 
-            jogadores.forEach((j, index) => {
-                const key = `${j.numero}-${index}`;
-                const status = estado[key] || 0;
-
+            jogadores.forEach((j) => {
                 const div = document.createElement('div');
-                div.className = `figurinha-card ${status === 0 ? 'vazia' : 'colada'}`;
-                div.addEventListener('click', () => toggleFigurinha(j.numero, index));
+                div.className = 'figurinha-card';
 
-                let html = `
+                div.addEventListener('click', () => {
+                    const nomeArquivo = j.img.split('/').pop();
+                    baixarImagem(j.img, nomeArquivo);
+                });
+
+                div.innerHTML = `
                     <div class="espaco-imagem">
-                `;
-
-                if (status === 0) {
-                    html += `?`;
-                } else {
-                    html += `<img src="${j.img}" alt="${j.nome}" />`;
-                }
-
-                html += `
+                        <img src="${j.img}" alt="${j.nome}" />
                     </div>
                     <div class="numero">${j.numero}</div>
                     <div class="nome">${j.nome}</div>
-                    <div class="status-label">${status === 0 ? 'Vazio' : 'Tenho'}</div>
                 `;
 
-                div.innerHTML = html;
                 grid.appendChild(div);
             });
         }
