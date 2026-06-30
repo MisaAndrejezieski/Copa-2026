@@ -13,13 +13,13 @@
         }
 
         .selecao-header h1 {
-            color: #1f1a1a !important;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6) !important;
+            color: #ffffff !important;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8) !important;
         }
 
         .selecao-header .subtitle {
-            color: #110f0f !important;
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5) !important;
+            color: #ffffff !important;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7) !important;
         }
 
         /* ===== GRID DE FIGURINHAS ===== */
@@ -49,17 +49,6 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .figurinha-card.vazia {
-            border-color: #3a4a3a;
-            background: #1a2a1a;
-        }
-
-        .figurinha-card.colada {
-            border-color: #006400;
-            background: linear-gradient(145deg, #0a3a0a, #1a4a1a);
-            box-shadow: 0 0 20px rgba(0, 100, 0, 0.2);
-        }
-
         .figurinha-card .espaco-imagem {
             width: 100%;
             aspect-ratio: 3/4;
@@ -68,9 +57,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
-            color: #4a6a4a;
-            font-weight: bold;
             overflow: hidden;
             margin-bottom: 6px;
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -94,24 +80,6 @@
             color: #ddeedd;
             font-weight: 600;
             margin-top: 2px;
-        }
-
-        .figurinha-card .status-label {
-            display: inline-block;
-            font-size: 0.6rem;
-            padding: 2px 12px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #8aaa8a;
-            margin-top: 4px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .figurinha-card.colada .status-label {
-            background: rgba(0, 100, 0, 0.3);
-            color: #66dd66;
         }
 
         /* ===== BOTÃO VOLTAR ===== */
@@ -232,7 +200,7 @@
             <img src="Africa do Sul/rsa-1-escudo-africa-do-sul.webp" alt="África do Sul" />
             <h2>
                 África do Sul
-                <small>Clique na figurinha para alternar: Vazio ↔ Tenho</small>
+                <small>Clique na figurinha para baixar</small>
             </h2>
         </div>
         <a href="index.html" class="btn-voltar">← Voltar ao Álbum</a>
@@ -252,8 +220,6 @@
         // ============================================
         // DADOS DOS JOGADORES
         // ============================================
-        const selecaoId = 'africa-do-sul';
-
         const jogadores = [
             { numero: 1, nome: 'Escudo África do Sul', img: 'Africa do Sul/rsa-1-escudo-africa-do-sul.webp' },
             { numero: 2, nome: 'Ronwen Williams', img: 'Africa do Sul/rsa-2-ronwen-williams.webp' },
@@ -278,27 +244,21 @@
         ];
 
         // ============================================
-        // ESTADO (localStorage) - APENAS 2 ESTADOS
+        // FUNÇÃO PARA BAIXAR A IMAGEM
         // ============================================
-        const storageKey = `album_${selecaoId}`;
-        let estado = JSON.parse(localStorage.getItem(storageKey)) || {};
-
-        jogadores.forEach((j, index) => {
-            const key = `${j.numero}-${index}`;
-            if (!(key in estado)) {
-                estado[key] = 0;
-            }
-        });
-
-        function salvarEstado() {
-            localStorage.setItem(storageKey, JSON.stringify(estado));
-            renderizar();
-        }
-
-        function toggleFigurinha(numero, index) {
-            const key = `${numero}-${index}`;
-            estado[key] = estado[key] === 0 ? 1 : 0;
-            salvarEstado();
+        function baixarImagem(url, nome) {
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = nome;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(link.href);
+                })
+                .catch(err => console.error('Erro ao baixar:', err));
         }
 
         // ============================================
@@ -309,32 +269,23 @@
         function renderizar() {
             grid.innerHTML = '';
 
-            jogadores.forEach((j, index) => {
-                const key = `${j.numero}-${index}`;
-                const status = estado[key] || 0;
-
+            jogadores.forEach((j) => {
                 const div = document.createElement('div');
-                div.className = `figurinha-card ${status === 0 ? 'vazia' : 'colada'}`;
-                div.addEventListener('click', () => toggleFigurinha(j.numero, index));
+                div.className = 'figurinha-card';
 
-                let html = `
+                div.addEventListener('click', () => {
+                    const nomeArquivo = j.img.split('/').pop();
+                    baixarImagem(j.img, nomeArquivo);
+                });
+
+                div.innerHTML = `
                     <div class="espaco-imagem">
-                `;
-
-                if (status === 0) {
-                    html += `?`;
-                } else {
-                    html += `<img src="${j.img}" alt="${j.nome}" />`;
-                }
-
-                html += `
+                        <img src="${j.img}" alt="${j.nome}" />
                     </div>
                     <div class="numero">#${String(j.numero).padStart(2, '0')}</div>
                     <div class="nome">${j.nome}</div>
-                    <div class="status-label">${status === 0 ? 'Vazio' : 'Tenho'}</div>
                 `;
 
-                div.innerHTML = html;
                 grid.appendChild(div);
             });
         }
