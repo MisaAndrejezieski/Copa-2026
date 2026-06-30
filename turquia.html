@@ -22,7 +22,6 @@
             text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4) !important;
         }
 
-        /* ===== GRID DE FIGURINHAS ===== */
         .figurinhas-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -114,7 +113,6 @@
             color: #ff6666;
         }
 
-        /* ===== BOTÃO VOLTAR ===== */
         .btn-voltar {
             display: inline-block;
             background: rgba(255, 255, 255, 0.1);
@@ -136,7 +134,6 @@
             transform: scale(1.02);
         }
 
-        /* ===== CABEÇALHO DA PÁGINA ===== */
         .page-header {
             max-width: 1100px;
             margin: 0 auto 10px;
@@ -217,7 +214,6 @@
 </head>
 <body>
 
-    <!-- ===== HEADER TURQUIA ===== -->
     <header class="selecao-header">
         <div class="header-content">
             <img src="logo.png" alt="Logo Copa 2026" class="fifa-logo" />
@@ -226,7 +222,6 @@
         </div>
     </header>
 
-    <!-- ===== CABEÇALHO DA PÁGINA ===== -->
     <div class="page-header">
         <div class="info">
             <img src="Turkiya/tur-0-escudo-turquia.webp" alt="Turquia" />
@@ -238,20 +233,13 @@
         <a href="index.html" class="btn-voltar">← Voltar ao Álbum</a>
     </div>
 
-    <!-- ===== GRID DE FIGURINHAS ===== -->
-    <div class="figurinhas-grid" id="gridFigurinhas">
-        <!-- Preenchido via JavaScript -->
-    </div>
+    <div class="figurinhas-grid" id="gridFigurinhas"></div>
 
-    <!-- ===== FOOTER ===== -->
     <footer>
         <p>© 2026 - Copa 2026 - Meu Álbum de Figurinhas</p>
     </footer>
 
     <script>
-        // ============================================
-        // DADOS DOS JOGADORES
-        // ============================================
         const selecaoId = 'turquia';
 
         const jogadores = [
@@ -269,9 +257,6 @@
             { numero: 11, nome: 'Kaan Ayhan', img: 'Turkiya/tur-11-kaan-ayhan.webp' }
         ];
 
-        // ============================================
-        // ESTADO (localStorage) - APENAS 2 ESTADOS
-        // ============================================
         const storageKey = `album_${selecaoId}`;
         let estado = JSON.parse(localStorage.getItem(storageKey)) || {};
 
@@ -293,9 +278,6 @@
             salvarEstado();
         }
 
-        // ============================================
-        // RENDERIZAÇÃO
-        // ============================================
         const grid = document.getElementById('gridFigurinhas');
 
         function renderizar() {

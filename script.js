@@ -1,6 +1,3 @@
-// ============================================
-// DADOS DAS SELEÇÕES
-// ============================================
 const selecoes = [
     { id: 'brasil', nome: 'Brasil', bandeira: 'Brasil/bra-1-escudo-do-brasil.webp' },
     { id: 'africa-do-sul', nome: 'África do Sul', bandeira: 'Africa do Sul/rsa-1-escudo-africa-do-sul.webp' },
@@ -24,30 +21,20 @@ const selecoes = [
     { id: 'turquia', nome: 'Turquia', bandeira: 'Turkiya/tur-0-escudo-turquia.webp' },
 ];
 
-// ============================================
-// RENDERIZAR CARDS
-// ============================================
 function renderizarCards() {
     const grid = document.getElementById('selecoesGrid');
     if (!grid) return;
-
     grid.innerHTML = '';
-
     selecoes.forEach(sel => {
         const card = document.createElement('a');
         card.href = `${sel.id}.html`;
         card.className = 'selecao-card';
-
         card.innerHTML = `
             <img src="${sel.bandeira}" alt="${sel.nome}" class="bandeira" />
             <h3>${sel.nome}</h3>
         `;
-
         grid.appendChild(card);
     });
 }
 
-// ============================================
-// INICIALIZAR
-// ============================================
 document.addEventListener('DOMContentLoaded', renderizarCards);
