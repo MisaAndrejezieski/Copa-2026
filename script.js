@@ -15,6 +15,7 @@ const selecoes = [
     { id: 'escocia', nome: 'Escócia', bandeira: 'Escócia/esc-0-escudo-escocia.webp' },
     { id: 'estados-unidos', nome: 'Estados Unidos', bandeira: 'Estados Unidos/est-0-escudo-estados-unidos.webp' },
     { id: 'haiti', nome: 'Haiti', bandeira: 'Haiti/hai-0-escudo-haiti.webp' },
+    { id: 'marrocos', nome: 'Marrocos', bandeira: 'Marrocos/mar-0-escudo-marrocos.webp' },
 ];
 
 // ============================================
