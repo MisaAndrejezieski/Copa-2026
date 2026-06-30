@@ -20,6 +20,7 @@ const selecoes = [
     { id: 'paraguai', nome: 'Paraguai', bandeira: 'Paraguai/par-0-escudo-paraguai.webp' },
     { id: 'qatar', nome: 'Qatar', bandeira: 'Qatar/1-escudo-catar.webp' },
     { id: 'republica-tcheca', nome: 'República Tcheca', bandeira: 'República Tcheca/cze-0-escudo-republica-tcheca.webp' },
+    { id: 'suica', nome: 'Suíça', bandeira: 'Suíça/sui-0-escudo-suica.webp' },
 ];
 
 // ============================================
