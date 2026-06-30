@@ -17,6 +17,7 @@ const selecoes = [
     { id: 'haiti', nome: 'Haiti', bandeira: 'Haiti/hai-0-escudo-haiti.webp' },
     { id: 'marrocos', nome: 'Marrocos', bandeira: 'Marrocos/mar-0-escudo-marrocos.webp' },
     { id: 'mexico', nome: 'México', bandeira: 'México/mex-1-escudo-mexico.webp' },
+    { id: 'paraguai', nome: 'Paraguai', bandeira: 'Paraguai/par-0-escudo-paraguai.webp' },
 ];
 
 // ============================================
