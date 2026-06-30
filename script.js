@@ -15,7 +15,7 @@ const selecoes = [
     { id: 'marrocos', nome: 'Marrocos', bandeira: 'Marrocos/mar-0-escudo-marrocos.webp' },
     { id: 'mexico', nome: 'México', bandeira: 'México/mex-1-escudo-mexico.webp' },
     { id: 'paraguai', nome: 'Paraguai', bandeira: 'Paraguai/par-0-escudo-paraguai.webp' },
-    { id: 'qatar', nome: 'Qatar', bandeira: 'Qatar/cat-1-escudo-qatar.webp' },
+    { id: 'qatar', nome: 'Qatar', bandeira: 'Qatar/1-escudo-catar.webp' },
 ];
 
 function renderizarCards() {
