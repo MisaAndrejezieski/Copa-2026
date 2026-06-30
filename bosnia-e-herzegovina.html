@@ -12,41 +12,13 @@
         }
 
         .selecao-header h1 {
-            color: #161615 !important;
-            text-shadow: 0 2px 20px rgba(255, 204, 0, 0.4) !important;
+            color: #ffffff !important;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8) !important;
         }
 
         .selecao-header .subtitle {
-            color: #aaccff !important;
-        }
-
-        .progresso-container {
-            max-width: 1000px;
-            margin: 24px auto;
-            padding: 0 20px;
-        }
-
-        .progresso-wrapper {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 4px;
-            border: 2px solid rgba(255, 204, 0, 0.3);
-        }
-
-        .progresso-barra {
-            height: 32px;
-            background: linear-gradient(90deg, #003399, #ffcc00);
-            border-radius: 10px;
-            width: 0%;
-            transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-weight: 900;
-            font-size: 0.9rem;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-            min-width: 60px;
+            color: #ffffff !important;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7) !important;
         }
 
         .figurinhas-grid {
@@ -55,7 +27,7 @@
             gap: 20px;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0 20px 40px;
+            padding: 40px 20px;
         }
 
         .figurinha-card {
@@ -75,23 +47,6 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .figurinha-card.vazia {
-            border-color: #3a3a4a;
-            background: #1a1a2a;
-        }
-
-        .figurinha-card.colada {
-            border-color: #003399;
-            background: linear-gradient(145deg, #0a0a3a, #1a1a4a);
-            box-shadow: 0 0 20px rgba(0, 51, 153, 0.2);
-        }
-
-        .figurinha-card.repetida {
-            border-color: #ffcc00;
-            background: linear-gradient(145deg, #3a3a0a, #2a2a0a);
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.15);
-        }
-
         .figurinha-card .espaco-imagem {
             width: 100%;
             aspect-ratio: 3/4;
@@ -100,9 +55,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
-            color: #4a4a6a;
-            font-weight: bold;
             overflow: hidden;
             margin-bottom: 6px;
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -126,29 +78,6 @@
             color: #ddeeff;
             font-weight: 600;
             margin-top: 2px;
-        }
-
-        .figurinha-card .status-label {
-            display: inline-block;
-            font-size: 0.6rem;
-            padding: 2px 12px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #8a8aaa;
-            margin-top: 4px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .figurinha-card.colada .status-label {
-            background: rgba(0, 51, 153, 0.3);
-            color: #6688dd;
-        }
-
-        .figurinha-card.repetida .status-label {
-            background: rgba(255, 204, 0, 0.2);
-            color: #ffdd44;
         }
 
         .btn-voltar {
@@ -190,9 +119,11 @@
 
         .page-header .info img {
             width: 56px;
-            height: auto;
-            border-radius: 4px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 204, 0, 0.3);
         }
 
         .page-header .info h2 {
@@ -218,10 +149,7 @@
             }
             .page-header .info img {
                 width: 40px;
-            }
-            .progresso-barra {
-                font-size: 0.75rem;
-                height: 26px;
+                height: 40px;
             }
         }
 
@@ -261,18 +189,12 @@
         </div>
     </header>
 
-    <div class="progresso-container">
-        <div class="progresso-wrapper">
-            <div class="progresso-barra" id="barraProgresso">0 / 20</div>
-        </div>
-    </div>
-
     <div class="page-header">
         <div class="info">
             <img src="Bósnia e Herzegovina/0-escudo-bosnia-e-herzegovina.webp" alt="Bósnia e Herzegovina" />
             <h2>
                 Bósnia e Herzegovina
-                <small>Clique na figurinha para alternar: Vazio → Tenho → Repetida</small>
+                <small>Clique na figurinha para baixar</small>
             </h2>
         </div>
         <a href="index.html" class="btn-voltar">← Voltar ao Álbum</a>
@@ -285,8 +207,6 @@
     </footer>
 
     <script>
-        const selecaoId = 'bosnia-e-herzegovina';
-
         const jogadores = [
             { numero: 0, nome: 'Escudo Bósnia', img: 'Bósnia e Herzegovina/0-escudo-bosnia-e-herzegovina.webp' },
             { numero: 1, nome: 'Nikola Vasilj', img: 'Bósnia e Herzegovina/bos-1-nikola-vasilj.webp' },
@@ -310,72 +230,45 @@
             { numero: 20, nome: 'Haris Tabakovic', img: 'Bósnia e Herzegovina/bos-t-20- Haris Tabakovic -bosnia-e-herzegovina.webp' }
         ];
 
-        const totalFigurinhas = jogadores.length;
-
-        const storageKey = `album_${selecaoId}`;
-        let estado = JSON.parse(localStorage.getItem(storageKey)) || {};
-
-        jogadores.forEach((j, index) => {
-            const key = `${j.numero}-${index}`;
-            if (!(key in estado)) {
-                estado[key] = 0;
-            }
-        });
-
-        function salvarEstado() {
-            localStorage.setItem(storageKey, JSON.stringify(estado));
-            renderizar();
-        }
-
-        function toggleFigurinha(numero, index) {
-            const key = `${numero}-${index}`;
-            estado[key] = (estado[key] + 1) % 3;
-            salvarEstado();
+        function baixarImagem(url, nome) {
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = nome;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(link.href);
+                })
+                .catch(err => console.error('Erro ao baixar:', err));
         }
 
         const grid = document.getElementById('gridFigurinhas');
-        const barra = document.getElementById('barraProgresso');
 
         function renderizar() {
             grid.innerHTML = '';
-            
-            let coladas = 0;
-            for (let key in estado) {
-                if (estado[key] === 1) coladas++;
-            }
 
-            jogadores.forEach((j, index) => {
-                const key = `${j.numero}-${index}`;
-                const status = estado[key] || 0;
-
+            jogadores.forEach((j) => {
                 const div = document.createElement('div');
-                div.className = `figurinha-card ${status === 0 ? 'vazia' : status === 1 ? 'colada' : 'repetida'}`;
-                div.addEventListener('click', () => toggleFigurinha(j.numero, index));
+                div.className = 'figurinha-card';
 
-                let html = `
+                div.addEventListener('click', () => {
+                    const nomeArquivo = j.img.split('/').pop();
+                    baixarImagem(j.img, nomeArquivo);
+                });
+
+                div.innerHTML = `
                     <div class="espaco-imagem">
-                `;
-
-                if (status === 0) {
-                    html += `?`;
-                } else {
-                    html += `<img src="${j.img}" alt="${j.nome}" />`;
-                }
-
-                html += `
+                        <img src="${j.img}" alt="${j.nome}" />
                     </div>
                     <div class="numero">${j.numero}</div>
                     <div class="nome">${j.nome}</div>
-                    <div class="status-label">${status === 0 ? 'Vazio' : status === 1 ? 'Tenho' : 'Repetida'}</div>
                 `;
 
-                div.innerHTML = html;
                 grid.appendChild(div);
             });
-
-            const percentual = Math.round((coladas / totalFigurinhas) * 100);
-            barra.style.width = `${percentual}%`;
-            barra.textContent = `${coladas} / ${totalFigurinhas}`;
         }
 
         renderizar();
